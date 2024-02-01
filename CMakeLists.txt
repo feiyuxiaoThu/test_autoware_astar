@@ -35,3 +35,4 @@ add_executable(filter_only main_filter_only.cpp src/astar_nodes/hastar_node.cpp
                                                 src/utils.cpp)
 
 target_link_libraries(filter_only PRIVATE osqp::osqp)
+

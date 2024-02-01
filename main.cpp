@@ -35,12 +35,12 @@ int main() {
         s_longitudinal[i] = i*ds;
 
     for(int i=0; i<10; ++i)
-        v_longitudinal[i] = 3.0;
+        v_longitudinal[i] = 13.0;
     for(int i=10; i<30; ++i)
-        v_longitudinal[i] = 5.0;
+        v_longitudinal[i] = 15.0;
     for(int i=30; i<N; ++i)
-        v_longitudinal[i] = 4.0;
-    v_longitudinal.back() = 0.0;
+        v_longitudinal[i] = 14.0;
+    v_longitudinal.back() = 10.0;
 
     // 2. Forward Filter
     std::vector<double> filtered_velocity(v_longitudinal.size());
@@ -80,7 +80,7 @@ int main() {
 
     //3. Backward Filter
     filtered_velocity.back() = v_longitudinal.back();
-    filtered_acceleration.back() = 0.0;
+    filtered_acceleration.back() = 10.0;
     current_vel = v_longitudinal.back();
     current_acc = 0.0;
     for(int i=N-2; i>=0; --i)
@@ -154,10 +154,12 @@ int main() {
     qp_optimizer.solve(initial_vel, initial_acc, input_velocity, input_velocity, input_acceleration,
                        qp_time, qp_velocity, qp_acceleration, qp_jerk);
 
+    std::cout << "test3" << std::endl;
     std::string qp_filename = "../result/qp_result.csv";
     std::string astar_filename = "../result/astar_result.csv";
     std::string velocity_filename = "../result/reference_velocity.csv";
-    Utils::outputVelocityToFile(velocity_filename, s_longitudinal, v_longitudinal, filtered_velocity);
+    std::cout << "test4" << std::endl;
+    Utils::outputVelocityToFile(velocity_filename, s_longitudinal, v_longitudinal, filtered_velocity,filtered_acceleration);
     Utils::outputResultToFile(qp_filename, qp_time, qp_velocity, qp_acceleration, qp_jerk, qp_dt);
     Utils::outputResultToFile(astar_filename,astar_output_info);
 

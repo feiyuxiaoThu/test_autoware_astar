@@ -163,12 +163,17 @@ bool QPOptimizer::solve(const double &initial_vel,
     std::cout << "---------------------" << std::endl;
     for(int i=N; i<2*N; ++i)
         std::cout << "a_result[" << i-N << "]: " << optval.at(i) << "[m/s^2]  " << ref_acc[i-N] << "[m/s^2]" << std::endl;
+    
 
+    std::cout << "test1" << N << std::endl;
+
+    
     qp_time.resize(N);
     qp_velocity.resize(N);
     qp_acceleration.resize(N);
     qp_jerk.resize(N);
     qp_velocity[0] = 0.0;
+    
     for(int i=1; i<N; ++i)
         qp_time[i] = qp_time[i-1] + param_.dt;
     for(int i=0; i<N; ++i)
@@ -177,6 +182,8 @@ bool QPOptimizer::solve(const double &initial_vel,
         qp_acceleration[i-N] = optval.at(i);
     for(int i=2*N; i<3*N; ++i)
         qp_jerk[i-2*N] = optval.at(i);
+    
+    std::cout << "test2" << std::endl;
 
     return true;
 }
